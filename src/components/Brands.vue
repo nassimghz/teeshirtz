@@ -4,7 +4,7 @@
         <div>
             <ul>
                 <input type="checkbox" id="nike" name="feature"
-                       value="nike" v-model="checkedItem"/>
+                       value="Nike" v-model="checkedItem"/>
                 <label for="nike">Nike</label>
                 <br>
                 <input type="checkbox" id="Adidas" name="feature"
@@ -33,10 +33,19 @@
         data () {
             return {
                 checkedItem: []
-            }
+            };
         },
+
         created() {
-            this.$ebus.$emit("checkedItem", this.checkedItem);
+            // this.$ebus.$emit("checkedItem", this.checkedItem);
+            this.$ebus.$on('resetFilter', () => {
+                this.checkedItem = [];
+            });
+        },
+        watch: {
+            'checkedItem': function(newVal) {
+                this.$store.commit('setBrands', newVal);
+            }
         }
     }
 </script>

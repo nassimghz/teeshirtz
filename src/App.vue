@@ -12,7 +12,7 @@
       </fixed-header>
       <div class="contain">
         <div class="items">
-          <itemforsale @click="$emit"> {{checkedItem}} </itemforsale>
+          <itemforsale  @click="$emit"> {{checkedItem}} </itemforsale>
         </div>
         <div class="filters">
           <filteritem></filteritem>
@@ -100,7 +100,7 @@
       font-weight: bold;
       color: #2c3e50;
       &.router-link-exact-active {
-        color: #42b983;
+        color: grey;
       }
     }
   }

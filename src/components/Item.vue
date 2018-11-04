@@ -1,14 +1,16 @@
 <template>
     <div class="contain">
-        <div class="row" v-for="(item, n) in itemForSale" :key="n">
-            <div class="card">
-                <img class="cardimg" :src="item.image" :alt="item.name">
-                <div class="cardcontain">
-                    <h4 class="cardtitle">{{item.name}}</h4>
-                    <div class="cardtext">{{item.price}}€</div>
+        <transition-group name="fade">
+            <div class="row" v-for="(item, n) in itemForSale" :key="n">
+                <div class="card">
+                    <img class="cardimg" :src="item.image" :alt="item.name">
+                    <div class="cardcontain">
+                        <h4 class="cardtitle">{{item.name}}</h4>
+                        <div class="cardtext">{{item.price}}€</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition-group>
     </div>
 </template>
 
@@ -16,35 +18,27 @@
     export default {
         data() {
             return {
-                itemForSale: [
-                    {brand: 'Nike', name: 'T-Shirt Nike Blanc', image: require("../assets/nikeblanc.jpeg"), price: 20},
-                    {brand: 'Nike', name: 'T-Shirt Nike Rouge', image: require("../assets/nikerouge.jpeg"), price: 20},
-                    {
-                        brand: 'Adidas',
-                        name: 'T-Shirt Adidas Blanc',
-                        image: require("../assets/adidasblanc.jpeg"),
-                        price: 23
-                    },
-                    {brand: 'Reebok', name: 'T-Shirt Reebok', image: require("../assets/reebok.jpeg"), price: 25},
-                    {brand: 'Puma', name: 'T-Shirt Puma Blanc', image: require("../assets/pumablanc.jpeg"), price: 20},
-                    {brand: 'Puma', name: 'T-Shirt Puma Noir', image: require("../assets/pumanoir.jpeg"), price: 20},
-                    {brand: 'Nike', name: 'T-Shirt Nike gris', image: require("../assets/nikegris.jpeg"), price: 15},
-                    {brand: 'Fila', name: 'T-Shirt Fila', image: require("../assets/fila.jpeg"), price: 30},
-                    {
-                        brand: 'Adidas',
-                        name: 'T-Shirt Adidas Noir',
-                        image: require("../assets/adidasnoir.jpeg"),
-                        price: 25
-                    },
-                ],
-
-                props: ['brand']
             }
+        },
+        computed: {
+            itemForSale() {
+                return this.$store.getters.getFilteredItemForSale;
+            }
+        },
+
+        mounted() {
+            // console.log(this.itemForSale);
         }
     }
 </script>
 
 <style scoped lang="scss">
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
 
     .contain {
         width: 550px;

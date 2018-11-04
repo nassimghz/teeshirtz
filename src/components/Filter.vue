@@ -2,7 +2,7 @@
     <div class="filtercard">
         <button @click="resetfields">reset filters</button>
         <hr>
-        <range v-model="value"></range>
+        <range></range>
         <hr>
         <brands></brands>
         <hr>
@@ -19,18 +19,19 @@
     export default {
         data (){
             return {
-                value : 0
             }
         },
+
         components : {
             colors,
             range,
             brands
-             },
+        },
         methods: {
-            resetfields: function () {
-                console.log(this.value);
-            },
+            resetfields() {
+                this.$store.commit('resetFilter');
+                this.$ebus.$emit('resetFilter');
+            }
         }
     }
 </script>
